@@ -14,7 +14,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(onTapGesture))
+        self.view.addGestureRecognizer(singleTap)
+        
     }
+    
+    @objc func onTapGesture()
+    {
+        print("Tap")
+        self.view.endEditing(true)
+    }
+    
     @IBAction func loginButtonPressed(_ sender: Any) {
         guard let login = loginTextField.text, let password = passwordTextField.text
         else { return }
@@ -22,6 +33,7 @@ class ViewController: UIViewController {
         if (login == "1" && password == "1"){
             print("Login success")
             
+            self.performSegue(withIdentifier: "enterMainMenuSegue", sender: nil)
             loginTextField.backgroundColor = .green
             passwordTextField.backgroundColor = .green
         } else {
@@ -29,7 +41,8 @@ class ViewController: UIViewController {
             passwordTextField.backgroundColor = .red
         }
     }
-    
-
+    @IBAction func groupButtonPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "groupProfileSegue", sender: nil)
+    }
 }
 
